@@ -8,6 +8,8 @@ RUN git clone https://github.com/docker-hy/material-applications.git
 
 RUN cd /material-applications/example-frontend/ && npm install
 
+ENV REACT_APP_BACKEND_URL=http://localhost:8080
+
 RUN cd /material-applications/example-frontend/ && npm run build
 
 EXPOSE 5000
