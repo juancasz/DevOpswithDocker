@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  
+  front:
+    build: "./ml-kurkkumopo-frontend-master"
+    ports:
+      - "3000:3000"
+  
+  back:
+    build: "./ml-kurkkumopo-backend-master"
+    ports:
+      - "5000:5000"
+    volumes:
+      - "model:/src/model"
+    
+  training:
+    build: "./ml-kurkkumopo-training-master"
+    volumes:
+      - "model:/src/model"
+      - "imgs:/src/imgs"
+
+volumes:
+  imgs:
+  model:
