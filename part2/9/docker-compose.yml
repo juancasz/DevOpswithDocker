@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  example-backend:
+    build: "../../part1/14/backend"
+    container_name: example-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - REDIS_HOST=redis-db
+      - POSTGRES_HOST=example-db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DATABASE=postgres
+
+  example-frontend:
+    build: "../../part1/14/frontend"
+    container_name: example-frontend
+    ports:
+      - "5000:5000"
+  
+  redis:
+    image: redis
+    container_name: redis-db
+    ports:
+      - "6379:6379"
+  
+  postgresql:
+    image: postgres
+    restart: unless-stopped
+    container_name: example-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./postgres:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DATABASE=postgres
